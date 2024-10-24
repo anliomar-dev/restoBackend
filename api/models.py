@@ -1,4 +1,6 @@
 from django.db import models
+from django.template.defaultfilters import default
+
 
 # Create your models here.
 
@@ -12,7 +14,7 @@ class Dishes(models.Model):
 
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES)
+    category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="starter")
     description = models.TextField()
     ingredients = models.TextField()
     image = models.ImageField(upload_to='images/')
