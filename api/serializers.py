@@ -1,5 +1,4 @@
-from django.template.context_processors import request
-from rest_framework import serializers, permissions
+from rest_framework import serializers
 from api.models import Dishes, Review, Reservation
 
 class DishesSerializer(serializers.ModelSerializer):

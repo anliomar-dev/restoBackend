@@ -10,7 +10,12 @@ class DishesViewSet(viewsets.ModelViewSet):
     pagination_class = TenItemsPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category']
+    permission_classes = [permissions.IsAuthenticated]
 
+    def get_permissions(self):
+        if self.request.method.lower() == 'get':
+            return [permissions.AllowAny()]
+        return super().get_permissions()
 
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
