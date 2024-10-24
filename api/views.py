@@ -31,10 +31,9 @@ class ReservationViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
     pagination_class = TenItemsPagination
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['dish']
     permission_classes = [permissions.IsAuthenticated]
 
     def get_permissions(self):
-        if self.request.method.lower() == 'post':
-            return [permissions.AllowAny]
+        if self.request.method.lower() == 'post' or self.request.method.lower() == 'get':
+            return [permissions.AllowAny()]
         return super().get_permissions()
