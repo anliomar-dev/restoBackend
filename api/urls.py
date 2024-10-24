@@ -1,13 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-"""from .views import UserViewSet"""
-
-# Créer un router
+from .views import DishesViewSet
 router = DefaultRouter()
-# Enregistrer le ViewSet avec le router
-"""router.register(r'users', UserViewSet)"""
+router.register('dishes', DishesViewSet)
+# router.register('reviews', ReviewViewSet)
+# router.register('reservations', ReservationViewSet)
 
-# Inclure les URLs du router
 urlpatterns = [
     path('', include(router.urls)),
 ]
