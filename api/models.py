@@ -37,7 +37,9 @@ class Reservation(models.Model):
         ("completed", "Completed"),
         ("no_show", "No-Show"),
     ]
-
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    phone = models.CharField(max_length=100, blank=True, null=True)
     reservation_date = models.DateField()
     time_slot = models.TimeField()
     number_of_people = models.IntegerField()
