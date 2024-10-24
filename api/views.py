@@ -24,3 +24,17 @@ class ReviewViewSet(viewsets.ModelViewSet):
         if self.request.method.lower() == 'post' or self.request.method.lower() == 'get':
             return [permissions.AllowAny()]
         return super().get_permissions()
+
+
+class ReservationViewSet(viewsets.ModelViewSet):
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
+    pagination_class = TenItemsPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['dish']
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permissions(self):
+        if self.request.method.lower() == 'post':
+            return [permissions.AllowAny]
+        return super().get_permissions()
