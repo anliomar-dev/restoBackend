@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.db import models
 
 # Create your models here.
@@ -42,8 +43,25 @@ class Reservation(models.Model):
     phone = models.CharField(max_length=100, blank=True, null=True)
     reservation_date = models.DateField()
     time_slot = models.TimeField()
-    number_of_people = models.IntegerField()
+    number_of_people = models.IntegerField(default=1)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="pending")  # Valeur par défaut
 
     def __str__(self):
         return f"Reservation for {self.number_of_people} people on {self.reservation_date} at {self.time_slot}"
+
+    def save(self, *args, **kwargs):
+        if self.number_of_people < 1:
+            self.number_of_people = 1
+        return super().save(*args, **kwargs)
+
+    def is_reservation_date_valid(self):
+        """ check if reservation date is valid """
+        return self.reservation_date >= datetime.date.today()
+
+    def is_time_slot_valid(self):
+        """Check if the time is at least 30 minutes from now."""
+        now = datetime.now()
+        # get actual time and add 30 minutes
+        min_time = (now + datetime.timedelta(minutes=30)).time()
+        reservation_time = self.time_slot
+        return reservation_time >= min_time
