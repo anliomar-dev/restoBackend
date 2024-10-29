@@ -6,4 +6,4 @@ class TenItemsPagination(PageNumberPagination):
 
 class TwelveItemsPagination(PageNumberPagination):
     page_size = 12  # Taille de page fixe : 12 éléments
-    max_page_size = 100
+    max_page_size = 102
