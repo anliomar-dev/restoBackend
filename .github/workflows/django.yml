@@ -1,36 +1,42 @@
-name: CI
+name: Django CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+    paths:
+      - airline0/**  # Déclenche le workflow uniquement si airline0 change
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - airline0/**  # Déclenche le workflow pour les PR qui affectent airline0
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7, 3.8, 3.9, 3.12]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'  # Change to your desired Python version
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r airline0/requirements.txt  # Installez toutes les dépendances
 
-      - name: Run tests
-        env:
-          DEBUG: true
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          DATABASE_USER: ${{ secrets.DATABASE_USER }}
-          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-        run: |
-          echo "Running tests..."
-          python manage.py test
+    - name: Set up SQLite database
+      run: |
+        echo "DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': 'db.sqlite3',}}" > airline0/settings.py
+
+    - name: Run Migrations
+      run: python airline0/manage.py migrate
+
+    - name: Run Tests
+      run: python airline0/manage.py test
