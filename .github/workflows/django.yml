@@ -1,10 +1,7 @@
-name: Django CI
+name: CI
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -13,32 +10,28 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.11'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Change to your desired Python version
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
 
-    - name: Run database migrations
-      env:
-        DATABASE_URL: 'mysql://root:${{ secrets.DATABASE_PASSWORD }}@localhost:3306/${{ secrets.DATABASE_NAME }}'
-        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-        DATABASE_USER: ${{ secrets.DATABASE_USER }}
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      run: |
-        python manage.py migrate
-
-    - name: Run tests
-      env:
-        DATABASE_URL: 'mysql://root:${{ secrets.DATABASE_PASSWORD }}@localhost:3306/${{ secrets.DATABASE_NAME }}'
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      run: |
-        python manage.py test
+      - name: Run tests
+        env:
+          DEBUG: true
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+        run: |
+          echo "Running tests..."
+          python manage.py test
