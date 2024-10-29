@@ -29,6 +29,9 @@ jobs:
     - name: Run database migrations
       env:
         DATABASE_URL: 'mysql://root:${{ secrets.DATABASE_PASSWORD }}@localhost:3306/${{ secrets.DATABASE_NAME }}'
+        DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+        DATABASE_USER: ${{ secrets.DATABASE_USER }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
       run: |
         python manage.py migrate
