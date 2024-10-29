@@ -30,7 +30,6 @@ jobs:
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
-          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
         run: |
           echo "Running tests..."

@@ -91,7 +91,7 @@ DATABASES = {
         'USER': config('DATABASE_USER'),
         'PASSWORD': config('DATABASE_PASSWORD'),
         'HOST': config('DATABASE_URL', default='localhost'),
-        'PORT': config('DATABASE_PORT', default=3306, cast=int),
+        'PORT': 3306,
         'OPTIONS': {
             'init_command': "SET default_storage_engine=INNODB; SET sql_mode='STRICT_TRANS_TABLES'",
         },
