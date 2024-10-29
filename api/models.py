@@ -1,4 +1,6 @@
 from datetime import datetime, timedelta
+
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Create your models here.
@@ -12,12 +14,17 @@ class Dishes(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=5, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="starter")
     description = models.TextField()
     ingredients = models.TextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     average = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
+    def clean(self):
+        if self.price > 100:  # Validation pour que le prix ne dépasse pas 100 euros
+            raise ValidationError("Le prix ne peut pas être supérieur à 100 euros.")
+        super().clean()
 
     def __str__(self):
         return self.name
