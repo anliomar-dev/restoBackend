@@ -25,7 +25,7 @@ class Dishes(models.Model):
 
 class Review(models.Model):
     dish = models.ForeignKey(Dishes, on_delete=models.CASCADE, related_name='reviews')
-    rating = models.DecimalField(max_digits=5, decimal_places=2)
+    rating = models.DecimalField(max_digits=3, decimal_places=2)
     comment = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
 
