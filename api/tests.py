@@ -45,7 +45,7 @@ class TestDishes(TestCase):
     def test_average_initial_value(self):
         new_dish = Dishes.objects.create(
             name='Dish 4', price=25.0,
-            description='description for Dish 4', ingredients="ingredient 4.1, ingredient 4.2"
+            description='description for Dish 4', ingredients="ingredient 4.1, ingredient 4.2", average=25
         )
         other_dish = Dishes.objects.get(name='Dish 3')
         # check if initial value of average is zero
