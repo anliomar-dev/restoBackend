@@ -11,6 +11,7 @@ class Dishes(models.Model):
         ("breakfast", "Breakfast"),
         ("lunch", "Lunch"),
         ("dinner", "Dinner"),
+        ("dessert", "Dessert"),
     ]
 
     name = models.CharField(max_length=100)
@@ -18,7 +19,7 @@ class Dishes(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="starter")
     description = models.TextField()
     ingredients = models.TextField()
-    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    image = models.ImageField(upload_to=f'images/', null=True, blank=True)
     average = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     def clean(self):
