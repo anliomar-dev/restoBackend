@@ -5,12 +5,13 @@ from api.serializers import DishesSerializer, ReviewsSerializer, ReservationSeri
 from rest_framework import viewsets, permissions, status
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Dishes, Review, Reservation
-from .pagination import TenItemsPagination, TwelveItemsPagination
+from .pagination import DishesPagination, ReviewsPagination, ReservationPagination
+
 
 class DishesViewSet(viewsets.ModelViewSet):
     queryset = Dishes.objects.all()
     serializer_class = DishesSerializer
-    pagination_class = TenItemsPagination
+    pagination_class = DishesPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category']
     permission_classes = [permissions.IsAuthenticated]
@@ -23,7 +24,7 @@ class DishesViewSet(viewsets.ModelViewSet):
 class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewsSerializer
-    pagination_class = TenItemsPagination
+    pagination_class = ReviewsPagination
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['dish']
     permission_classes = [permissions.IsAuthenticated]
@@ -37,7 +38,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    pagination_class = TenItemsPagination
+    pagination_class = ReservationPagination
     filter_backends = [DjangoFilterBackend]
     permission_classes = [permissions.IsAuthenticated]
 
