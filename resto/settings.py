@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'api',
     'corsheaders',
     'rest_framework',
@@ -175,10 +177,14 @@ STATICFILES_DIRS = [
 # Répertoire où collecter les fichiers statiques après avoir exécuté `collectstatic`
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Configurations pour les fichiers médias (vos images téléversées par exemple)
-MEDIA_URL = '/media/'  # URL où les fichiers médias seront accessibles
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET'),
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
