@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta
-from cloudinary.models import CloudinaryField
+
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -19,7 +19,7 @@ class Dishes(models.Model):
     category = models.CharField(max_length=10, choices=CATEGORY_CHOICES, default="starter")
     description = models.TextField()
     ingredients = models.TextField()
-    image = CloudinaryField('image')
+    image = models.URLField(max_length=500)
     average = models.DecimalField(max_digits=5, decimal_places=2, default=0)
 
     def clean(self):
