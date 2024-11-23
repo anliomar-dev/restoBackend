@@ -176,7 +176,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Configurations pour les fichiers médias (vos images téléversées par exemple)
-MEDIA_URL = '/media/'
+MEDIA_URL = '/media/'  # URL où les fichiers médias seront accessibles
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
