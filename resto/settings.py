@@ -27,9 +27,10 @@ SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = config(
     'ALLOWED_HOSTS',
-    default='localhost',
+    default='localhost,127.0.0.1,omaranli.alwaysdata.net',
     cast=lambda v: [s.strip() for s in v.split(',')]
 )
+
 
 # Application definition
 INSTALLED_APPS = [
