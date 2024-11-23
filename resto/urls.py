@@ -10,3 +10,7 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if not settings.DEBUG:
+    # Pour servir les fichiers medias en mode production
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
