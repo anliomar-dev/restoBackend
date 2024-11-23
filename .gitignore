@@ -2,3 +2,6 @@
 dataSources.local.xml
 venv/
 .env
+
+*.pyc
+__pycache__/
