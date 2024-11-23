@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 from decouple import config
+from django.conf.urls import static
 from django.contrib import staticfiles
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -163,10 +164,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_URL = 'static/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# URL à utiliser pour les fichiers statiques
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# Répertoire où collecter les fichiers statiques après avoir exécuté `collectstatic`
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# Configurations pour les fichiers médias (vos images téléversées par exemple)
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
