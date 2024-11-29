@@ -1,18 +1,18 @@
 from rest_framework.pagination import PageNumberPagination
 
 class DishesPagination(PageNumberPagination):
-    page_size = 4  # Taille de page fixe : 10 éléments
-    max_page_size = 100  # Limite maximale en cas d’extension future
+    page_size = 4
+    max_page_size = 100
 
 
 class ReviewsPagination(PageNumberPagination):
-    page_size = 8  # Taille de page fixe : 10 éléments
-    max_page_size = 100  # Limite maximale en cas d’extension future
+    page_size = 8
+    max_page_size = 100
 
 class ReservationPagination(PageNumberPagination):
-    page_size = 8  # Taille de page fixe : 10 éléments
-    max_page_size = 100  # Limite maximale en cas d’extension future
+    page_size = 8
+    max_page_size = 100
 
 class TwelveItemsPagination(PageNumberPagination):
-    page_size = 12  # Taille de page fixe : 12 éléments
+    page_size = 12
     max_page_size = 102
