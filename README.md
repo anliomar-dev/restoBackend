@@ -51,18 +51,27 @@ local: http://localhost:3000/dishes/?category=starter&page=1
 ## 🔧 Local Setup
 
 If you want to run the API locally, follow these steps:
-
-1. Clone the repository:
+ # 1. Clone the repository:
  ```bash
  git clone https://github.com/username/restoBackend.git
+```
  cd restoBackend
+ create a virtual environnement
+ acitivate the virtual environnement
+ then run:
 ```bash
   pip install -r requirements.txt
-```bash
-  pip install -r requirements.txt
-  python manage.py migrate
-  python manage.py runserver
 ````
+
+# 2 create .env file in the root folder if you use mysql or postgresql
+DEBUG=True( in local) if you want to deploy your own version of the api you have to set DEBUG to False
+SECRET_KEY=you_secret_jey
+ALLOWED_HOSTS=localhost,127.0.0.1, and prod ulr if you want to deploy your own version
+DATABASE_NAME=your_database_name
+DATABASE_USER=you_database_user
+DATABASE_PASSWORD=your_database_password
+HOST=host(localhost for local)
+
 The API will be accessible at http://localhost:8000/.
 if you donn't want to use mysql database and want to quickly test the api localy, you can change configurations for database in settings and use sqlite database
 DATABASES = {
@@ -71,6 +80,14 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+ # 3. Clone the repository:
+ ```bash
+ cd restoBackend
+```bash
+  python manage.py migrate
+  python manage.py runserver
+````
 
 ## Backend API Deployment
 The backend API is hosted and available at:
